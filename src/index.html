@@ -4,11 +4,12 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js">
 </script>
+<script src="./js/main.js"></script>
 <head>
   <meta charset="utf-8">
   <title>Reihenfolge von Rechenoperationen und Klammerregeln</title>
 </head>
-<body>
+<body onload="init()">
   <div class="test">
     <img src="assets/conductor.png" style="width: 50px">
     <br>
@@ -23,6 +24,12 @@
   </div>
   <div id="stations">
 
+  </div>
+  <div class="game">
+    <div class="equation"></div>
+    <div class="numberTrains"></div>
+    <div class="operationStations"></div>
+    <div class="solutionDestination"></div>
   </div>
 </body>
 </html>
