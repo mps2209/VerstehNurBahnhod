@@ -45,8 +45,45 @@
     </div>
   </div>
   <div class="cp_section">
-    <h2>Spiel "Ich verstehe nur Bahnhof!"</h2>
+    <h2>"Ich verstehe nur Bahnhof!"</h2>
+    <div class="explanation">
+      <h3>Die Kühe brauchen Futter<img src="assets/goodhay.png" alt="Gutes Heu"> </h3>
+      <p>    Verbinde die Züge mit den Stationen um das Futter zu liefern. <br>
+        <b>Achtung!</b> Pass auf die richtige Reihenfolge auf sonst bleiben einige Kühe hungrig. <br>
+        Wenn du zuviel Futter liefert dann wird dieses schlecht.</p>
+    </div>
+
+
     <div class="game-box">
+      <div class="gameheader">
+
+          <div class="equation">
+            <span class="game-text"><span id="target"></span></span>
+          </div>
+          <div class="buttons">
+            <div class="game-button" onclick="game.startPlayMode()">Start</div>
+            <div class="game-button" onclick="game.nextRound()">Next</div>
+          </div>
+         <div class="sadcow scoreIcon">
+           <p>0x</p>
+           <img src="assets/sadcow.png" alt="Traurige Kuh">
+         </div> 
+         <div class="happycow scoreIcon">
+          <p>0x</p>
+           <img src="assets/happycow.png" alt="Glückliche Kuh">
+         </div>
+         <div class="goodhay scoreIcon">
+          <p>0x</p>
+           <img src="assets/goodhay.png" alt="Gutes Heu">
+         </div>
+         <div class="badhay scoreIcon">
+          <p>0x</p>
+           <img src="assets/badhay.png" alt="Schlechtes Heu">
+         </div>
+         <div class="points">
+           0 Punkte
+         </div>
+        <!--
       <br>
       <div class="space-box">
         <div class="game-button" onclick="game.startPlayMode()">Start</div>
@@ -57,25 +94,26 @@
         <span class="game-text">Target: <span id="target"></span></span>
         <span class="game-text">Result: <span id="result"></span></span>
       </div>
+      -->
+
+    </div>
       <div class="game">
         <div id="canvas">
         </div>
-        <div id="overlay">
+        <div id="disablingActionsOverlay">
         </div>
-        <div id="dropdown" onchange="game.chooseSign()">
-          <select name="signs" id="sign_select">
-            <option value="" disabled selected>Choose sign for the station</option>
-            <option value="+">Plus ( + )</option>
-            <option value="-">Minus ( - )</option>
-            <option value="*">Multiplizieren ( * )</option>
-            <option value="/">Dividieren ( / )</option>
-        </select>
+        <div id="signOverlay">
+        </div>
+        <div id="signButtons">
+            <input type="button" value="+" class="sign-button" onclick="game.chooseSign('+')"/>
+            <input type="button" value="-" class="sign-button" onclick="game.chooseSign('-')"/>
+            <input type="button" value="*" class="sign-button" onclick="game.chooseSign('*')"/>
+            <input type="button" value="/" class="sign-button" onclick="game.chooseSign('/')"/>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <div id="stations"></div> -->
   <script src="pathAnimator.js">
   </script>
     <script src="animatedTrain.js">

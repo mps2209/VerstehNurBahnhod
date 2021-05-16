@@ -1,3 +1,19 @@
+
+@keyframes popUp {
+    0%   {transform: scale(1);}
+    50%  {transform: scale(1.5);}
+    100% {transform: scale(1);}
+  }
+  
+*{
+    color:black;
+}
+.popUpAnim{
+    animation-name: popUp;
+    animation-duration: .5s;
+    animation-iteration-count:1;
+
+}
 body {
     font-family     : "Semikolon", sans-serif;
     font-size       : 19.2px;
@@ -6,11 +22,16 @@ body {
 }
 
 #canvas {
-    background-image: url(assets/grass.png);
-    height          : 930px;
-    max-width       : 1500px;
+    background-image: url(assets/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
-
+#canvas svg{
+    height: 100%;
+    width: 100%;
+}
 .cp_intro,
 .cp_section {
     padding      : 10px 20px;
@@ -46,7 +67,17 @@ h2 {
     font-size    : 29px;
     border-bottom: 1px solid #75742d;
 }
+h3{
+    color: black;
+    display: inline-flex;
+    align-items: center;
 
+
+}
+h3 img{
+    max-width: 100%;
+    max-height: 100%;
+}
 .quote {
     font-style: italic;
     padding   : 10px;
@@ -69,70 +100,173 @@ li {
     padding        : 10px 0;
 }
 
-.game-text {
-    padding       : 15px 0;
-    font-weight   : 600;
-    font-size     : 23px;
-    text-align    : center;
-    letter-spacing: 1.2px;
-    font-family   : "Mono", monospace;
-}
 
 .game-box {
     max-width       : 1500px;
+    height: 100vh;
     margin          : 20px 10px;
     border-radius   : 5% 5% 0 0;
-    background-color: #1b1b1b;
-    border          : 1px solid #eee;
+    background-color: white;
+    border          : 6px solid black;
     color           : #dbdbdb;
 }
 
 .game-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #1a5209;
-    border-radius   : 10%;
-    padding         : 10px 20px;
-    height          : fit-content;
-    margin          : auto;
+    border-radius   : 20px;
+    padding: 1rem 3rem;
     cursor          : pointer;
     transition      : background-color .4s;
     font-size       : 25px;
+    color: white;
 }
 
 .game-button:hover {
     background-color: #23720a;
 }
 
-#dropdown {
+#signButtons {
     position: absolute;
     width   : fit-content;
-    top     : 0;
-    left    : 0;
     display: none;
+    padding      : 7px 7px;
+    border-radius: 10px;
+    font-weight  : 700;
+    margin-left: 40px;
 }
 
-#sign_select {
-    padding   : 7px 7px;
-    border-radius   : 10px;
-    border          : 5px solid #3d2a26;
-    text-align-last:center; 
-    font-weight: 700;
-}
-
-#sign_select option {
-    text-align-last:center; 
+.sign-button {
+    text-align-last: center;
 }
 
 .game {
+    height: 80vh;
+
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
     position: relative;
 }
 
-#overlay {
+
+#signOverlay {
+    width           : 100%;
+    height          : 100%;
+    opacity         : 0.4;
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+    background-color: #000;
+    display         : none;
+}
+
+#disablingActionsOverlay {
+    width   : 100%;
+    height  : 100%;
+    top     : 0;
+    left    : 0;
+    display : none;
+    position: absolute;
+}
+.gameheader{
+    padding: 0 1rem;
+    height: 20vh;
+    display: grid;
+    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: repeat(3, 1fr) auto;
+    grid-template-areas: ". sadcow happycow ."
+     "equation sadcow happycow points"
+     "equation goodhay badhay points"
+     "buttons goodhay badhay .";
+
+}
+.equation{
+    display: flex;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #000;
-    display: none;
+    justify-content: center;
+    align-items: center;
+
+   grid-area: equation;
+   font-weight   : 600;
+   font-size     : 42px;
+   text-align    : center;
+   letter-spacing: 1.2px;
+   font-family   : "Mono", monospace;
+}
+.buttons{
+    display: flex;
+    width: 100%;
+    height: 80%;
+    justify-content: space-around;
+    grid-area: buttons;
+}
+.sadcow{
+
+    grid-area: sadcow;
+}
+.scoreIcon{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    font-size: 36px;
+}
+.scoreIcon img{
+    transition: all .2s ease-in-out;
+
+}
+.sadcow img{
+    height: 100%;
+    width: auto;
+    
+}
+.happycow{
+    grid-area: happycow;
+
+}
+.happycow img{
+    height: 100%;
+    width: auto;
+    
+}
+.goodhay{
+    grid-area: goodhay;
+
+
+}
+.goodhay img{
+    height: 100%;
+    width: auto;
+    
+}
+.badhay{
+    grid-area: badhay;
+
+
+}
+.badhay img{
+    height: 100%;
+    width: auto;
+    
+}
+.points{
+    grid-area: points;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 36px;
+    align-items: center;
+    transition: all .2s ease-in-out;
+
+    
+}
+.explanation{
+    padding: 1rem 3rem;
 }
