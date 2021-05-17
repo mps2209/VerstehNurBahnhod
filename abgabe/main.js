@@ -376,7 +376,10 @@ class Game {
             while(hayToTransport>10){
                 numberOfWagons++;
                 if(numberOfWagons>2){
-                    hayToTransport= hayToTransport%10;
+                    if (hayToTransport>10){
+                        hayToTransport= 10;
+
+                    }
                     break;
                 }
                 hayToTransport-=10;
