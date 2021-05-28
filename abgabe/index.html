@@ -45,90 +45,74 @@
     </div>
   </div>
   <div class="cp_section">
-    <h2>"Ich verstehe nur Bahnhof!"</h2>
-    <div class="explanation">
-      <h3>Die Kühe brauchen Futter<img src="assets/goodhay.png" alt="Gutes Heu"> </h3>
-      <p>      Verbinde die Züge mit den Stationen, um das Futter zu liefern.<br>
-        <b>Achtung! </b>Pass auf die richtige Reihenfolge auf, sonst bleiben einige Kühe hungrig.<br>
-        Wenn du zu viel Futter lieferst, dann wird das Futter schlecht.</p>
-
-      <p>
-      Klicke auf die Stationen und wähle die passende Rechenoperation aus. <br>
-       Hast du alle Stationen verbunden, dann klicke auf Start, um das Heu zu liefern.
-      </p>
-    </div>
-
-
+    <h2>Spiel "Ich verstehe nur Bahnhof!"</h2>
     <div class="game-box">
-      <div class="gameheader">
+      <div id="feedbackOverlay">
+        <div class="feedBackContainer">
+          <p></p>
+          <div class="game-button" id="feedbackNextButton" onclick="game.nextRound()">Nächste Runde</div>
+  
+  
+        </div>
+           </div>
+      <img class="cow" id="happyCow" src="assets/1.svg">
+      <img class="cow" id="illCow" src="assets/2.svg">
+      <img class="cow" id="sadCow" src="assets/3.svg">
 
-          <div class="equation">
-            <span class="game-text"><span id="target"></span></span>
+      <div class="overlay" id="infoOverlay">
+        <div>
+          <h3>
+            Die Kühe brauchen Futter!
+          </h3>
+          Verbinde die Züge mit den Stationen, um das Futter zu liefern.
+          Achtung! Pass auf die richtige Reihenfolge auf, sonst bleiben einige Kühe hungrig.
+          Wenn du zu viel Futter lieferst, dann wird das Futter schlecht.
+          <br>
+          <br>
+          Klicke auf die Stationen und wähle die passenden Rechenoperation aus.
+          Hast du alle Stationen verbunden, dann klicke auf 'Los geht's', um das Heu zu liefern.
+          <div id="startGameButton" class="game-button" onclick="game.hideStartInformation()">
+            Start ➤
           </div>
-          <div class="buttons">
-            <button class="game-button" id="startButton" onclick="game.startPlayMode()">Start</button>
-            <button class="game-button" id="nextButton" onclick="game.nextRound()">Next</button>
-          </div>
-         <div class="sadcow scoreIcon">
-           <p>0x</p>
-           <img src="assets/sadcow.png" alt="Traurige Kuh">
-         </div> 
-         <div class="happycow scoreIcon">
-          <p>0x</p>
-           <img src="assets/happycow.png" alt="Glückliche Kuh">
-         </div>
-         <div class="goodhay scoreIcon">
-          <p>0x</p>
-           <img src="assets/goodhay.png" alt="Gutes Heu">
-         </div>
-         <div class="badhay scoreIcon">
-          <p>0x</p>
-           <img src="assets/badhay.png" alt="Schlechtes Heu">
-         </div>
-         <div class="points">
-           0 Punkte
-         </div>
-        <!--
-      <br>
-      <div class="space-box">
-        <div class="game-button" onclick="game.startPlayMode()">Start</div>
-        <div class="game-button" onclick="game.nextRound()">Next</div>
+        </div>
       </div>
       <div class="space-box">
-        <div class="game-text"><span id="points">0</span> points</div>
-        <span class="game-text">Target: <span id="target"></span></span>
-        <span class="game-text">Result: <span id="result"></span></span>
+        <div id="startStopButton" class="game-button" onClick="game.startStopPlayMode()">Los geht's</div>
+        <div class="game-button" onclick="game.nextRound()">Nächste Runde</div>
       </div>
-      -->
-
-    </div>
+      <div class="space-box">
+        <div class="game-text"><span id="level">Level: 0</span>  Punkte: <span id="points">0</span></div>
+        <span class="game-text">Ziel: <span id="target"></span></span>
+      </div>
+      <div class="progressBarContainer">
+        
+        <div class="badProgressBar"></div>
+        <div class="progressBar"></div>
+      </div>
       <div class="game">
         <div id="canvas">
         </div>
-        <div id="disablingActionsOverlay">
+        <div class="overlay" id="disablingActionsOverlay">
         </div>
-        <div id="signOverlay">
+        <div class="overlay" id="signOverlay">
         </div>
-        <div id="signButtons">
-            <input type="button" value="+" class="sign-button" onclick="game.chooseSign('+')"/>
-            <input type="button" value="-" class="sign-button" onclick="game.chooseSign('-')"/>
-            <input type="button" value="*" class="sign-button" onclick="game.chooseSign('*')"/>
-            <input type="button" value="/" class="sign-button" onclick="game.chooseSign('/')"/>
+        <!-- usage as a template -->
+        <div class="sign-buttons">
+          <div class="sign-button plus-button">+</div>
+          <div class="sign-button minus-button">-</div>
+          <div class="sign-button star-button">*</div>
+          <div class="sign-button slash-button">/</div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="pathAnimator.js">
-  </script>
-    <script src="animatedTrain.js">
-    </script>
   <script src="train.js">
   </script>
-    <script src="joinedTrain.js">
-    </script>
+  <script src="joinedTrain.js">
+  </script>
   <script src="main.js">
-  
+
   </script>
 </body>
 

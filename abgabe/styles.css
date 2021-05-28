@@ -1,19 +1,3 @@
-
-@keyframes popUp {
-    0%   {transform: scale(1);}
-    50%  {transform: scale(1.5);}
-    100% {transform: scale(1);}
-  }
-  
-*{
-    color:black;
-}
-.popUpAnim{
-    animation-name: popUp;
-    animation-duration: .5s;
-    animation-iteration-count:1;
-
-}
 body {
     font-family     : "Semikolon", sans-serif;
     font-size       : 19.2px;
@@ -22,16 +6,13 @@ body {
 }
 
 #canvas {
-    background-image: url(assets/background.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
+    background-image : url(assets/background.png);
+    background-size  : 100% 50%;
+    background-repeat: repeat-y;
+    width            : 1200px;
+    height           : 650px;
 }
-#canvas svg{
-    height: 100%;
-    width: 100%;
-}
+
 .cp_intro,
 .cp_section {
     padding      : 10px 20px;
@@ -67,17 +48,7 @@ h2 {
     font-size    : 29px;
     border-bottom: 1px solid #75742d;
 }
-h3{
-    color: black;
-    display: inline-flex;
-    align-items: center;
 
-
-}
-h3 img{
-    max-width: 100%;
-    max-height: 100%;
-}
 .quote {
     font-style: italic;
     padding   : 10px;
@@ -97,176 +68,200 @@ li {
 .space-box {
     justify-content: space-around;
     display        : flex;
-    padding        : 10px 0;
 }
 
+.game-text {
+    padding       : 15px 0;
+    font-weight   : 600;
+    font-size     : 23px;
+    text-align    : center;
+    letter-spacing: 1.2px;
+    font-family   : "Mono", monospace;
+}
 
 .game-box {
-    max-width       : 1500px;
-    height: 100vh;
+    width           : 1200px;
+    max-height      : 800px;
     margin          : 20px 10px;
     border-radius   : 5% 5% 0 0;
-    background-color: white;
-    border          : 6px solid black;
+    background-color: #1b1b1b;
+    border          : 1px solid #eee;
     color           : #dbdbdb;
+    position        : relative;
+    user-select     : none;
+}
+
+#startStopButton {
+    width     : 115px;
+    text-align: center;
 }
 
 .game-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1a5209;
-    border-radius   : 20px;
-    padding: 1rem 3rem;
+    background-color: #40752d;
+    border-radius   : 0 0 10px 10px;
+    padding         : 10px 20px;
+    height          : fit-content;
+    margin          : auto;
+    margin-bottom   : 10px;
     cursor          : pointer;
     transition      : background-color .4s;
     font-size       : 25px;
-    color: white;
+    user-select     : none;
 }
 
 .game-button:hover {
-    background-color: #23720a;
+    background-color: #47892f;
 }
 
-#signButtons {
-    position: absolute;
-    width   : fit-content;
-    display: none;
+.sign-buttons {
+    position     : absolute;
+    width        : fit-content;
+    display      : none;
     padding      : 7px 7px;
     border-radius: 10px;
     font-weight  : 700;
-    margin-left: 40px;
+    margin-left  : 40px;
 }
 
 .sign-button {
-    text-align-last: center;
+    text-align-last : center;
+    font-size       : 20px;
+    height          : 25px;
+    width           : 25px;
+    cursor          : pointer;
+    margin          : 0 5px;
+    background-color: #1B1B1D;
+    display         : inline-block;
+    padding         : 3px 3px 0;
+    border          : #dbdbdb 1px solid;
+}
+
+.sign-button:hover {
+    background-color: #3d3d42;
 }
 
 .game {
-    height: 80vh;
-
-    width: 100%;
-    max-height: 100%;
-    max-width: 100%;
     position: relative;
 }
 
-
-#signOverlay {
+.overlay {
     width           : 100%;
     height          : 100%;
-    opacity         : 0.4;
     position        : absolute;
     top             : 0;
     left            : 0;
-    background-color: #000;
+    background-color: #00000000;
+    display         : none;
+    user-select     : none;
+    z-index         : 1;
+}
+
+#infoOverlay {
+    background-color: #000000d4;
+    border-radius   : 5% 5% 0 0;
     display         : none;
 }
 
-#disablingActionsOverlay {
-    width   : 100%;
-    height  : 100%;
-    top     : 0;
-    left    : 0;
-    display : none;
+#signOverlay {
+    background-color: #00000099;
+}
+
+#feedbackOverlay {
+    margin: 0 20px;
+    border-radius   : 10px 10px 0 0;
+    position        : absolute;
+    z-index         : 1;
+    display         : none;
+    padding         : 20px 50px 20px 20px;
+    height          : 110px;
+    background-color: #c3c3c3;
+    width           : auto;
+    padding         : 20px 120px 20px 20px;
+    bottom          : 0;
+    right           : 0;
+    color           : #000;
+    text-align      : center;
+    font-size       : 25px;
+}
+
+.cow {
     position: absolute;
+    bottom  : 0;
+    right   : 0;
+    z-index : 1;
+    display : none;
 }
-.gameheader{
-    padding: 0 1rem;
-    height: 20vh;
-    display: grid;
-    grid-template-rows: 20% 30% 30% 20%;
-    grid-template-columns: repeat(3, 1fr) auto;
-    grid-template-areas: ". happycow sadcow."
-     "equation happycow sadcow points"
-     "equation goodhay badhay points"
-     "buttons goodhay badhay .";
 
+#illCow,
+#sadCow {
+    bottom: 15px;
 }
-.equation{
+
+#infoOverlay>div {
+    margin     : 150px auto;
+    display    : block;
+    width      : 50%;
+    padding    : 50px;
+    line-height: 2;
+}
+
+#startGameButton {
+    background-color: #40752d;
+    border-radius   : 10px 0 0 0;
+    width           : fit-content;
+    padding         : 5px 25px;
+    font-size       : 40px;
+    float           : right;
+    position        : absolute;
+    bottom          : 0;
+    right           : 0;
+    margin-bottom   : auto;
+}
+
+#startGameButton:hover {
+    background-color: #47892f;
+}
+.progressBarContainer{
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background-color: white;
+}
+.progressBar{
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 10%;
+    background-color: green;
+    transition: all .5s ease-out;
+}
+.badProgressBar{
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 10%;
+    background-color: red;
+    transition: all .5s ease-out;
+}
+#feedbackNextButton{
     display: flex;
+    align-items: center;
+    margin: 0;
+    position: relative;
+    border-radius   : 10px 10px 10px 10px;
+    width: auto;
+    height: 50px;
+    color: white;
+}
+.feedBackContainer{
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
-
-   grid-area: equation;
-   font-weight   : 600;
-   font-size     : 42px;
-   text-align    : center;
-   letter-spacing: 1.2px;
-   font-family   : "Mono", monospace;
-}
-.buttons{
     display: flex;
-    width: 100%;
-    height: 80%;
+    align-items: center;
     justify-content: space-around;
-    grid-area: buttons;
 }
-.sadcow{
-
-    grid-area: sadcow;
-}
-.scoreIcon{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: space-around;
-    align-items: center;
-    font-weight: bold;
-    font-size: 36px;
-}
-.scoreIcon img{
-    transition: all .2s ease-in-out;
-
-}
-.sadcow img{
-    height: 100%;
-    width: auto;
-    
-}
-.happycow{
-    grid-area: happycow;
-
-}
-.happycow img{
-    height: 100%;
-    width: auto;
-    
-}
-.goodhay{
-    grid-area: goodhay;
-
-
-}
-.goodhay img{
-    height: 100%;
-    width: auto;
-    
-}
-.badhay{
-    grid-area: badhay;
-
-
-}
-.badhay img{
-    height: 100%;
-    width: auto;
-    
-}
-.points{
-    grid-area: points;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    font-weight: bold;
-    font-size: 36px;
-    align-items: center;
-    transition: all .2s ease-in-out;
-
-    
-}
-.explanation{
-    padding: 1rem 3rem;
+.feedBackContainer p{
+    width: 75%;
 }

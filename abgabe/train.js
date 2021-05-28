@@ -1,140 +1,71 @@
-
-
 class Train {
-    value; visible; id; eqString; position; level;
+    value; visible; id; position; level;
     constructor(id, value, position, level) {
         this.value = value;
         this.id = id;
         this.visible = true;
-        this.eqString = value;
         this.position = position;
         this.level = level;
-        this.group=null;
-        this.rails=null;
-        this.path;
-        this.pathAnimation=null;
-        this.cargoTrains=[];
-        this.lok=null;
-        this.moving=false;
-        this.animatedTrains=[];
-        this.finaltrain=false;
-        this.stopsmoke=false;
-        this.smoking=false;
+        this.finalTrain = false;
     }
-    clear(){
-        this.group.remove();
-    }
-    updateAnimatedTrains(){
-        this.animatedTrains=[];
 
-        this.animatedTrains.push(new AnimatedTrain(this.group,this));
-        this.cargoTrains.forEach(cargo=>{
-            this.animatedTrains.push(new AnimatedTrain(cargo,this));
-        });
-    }
-      
-    // TODO rotation of trains
     async move(target, duration, delay) {
+        let localTimeStamp = window.timestamp;
+        let trainHTML = $('.train-' + this.id)[0];
+        var trainSVG = SVG.find('.train-' + this.id);
 
-        let result= await this.waitForSeconds(delay);
+        var path = SVG.find('.path-' + this.id)[0];
+        var length = path.length();
 
-        let carts=this.group.children();
-        this.group.show();
-        this.group.first().children().forEach((child,index)=>{
-            if(index==0){
-                child.attr({ x:  -50, y: -18});
+        var angle = 0;
+        var pathPoint = path.pointAt(0 * length);
+        var offsetY = pathPoint.y - 55;
 
-            }else{
-                child.attr({ x:  -50 + 15, y: 0});
+        trainHTML.setAttribute('transform-box', "transformAttr");
+        trainHTML.setAttribute('transform-origin', pathPoint.x + "px " + pathPoint.y + "px");
 
-            }
-        })
-
-
-        //this.group.children()[this.group.children().length-1].attr({ x:  -50+15, y: 6});
-
-
-        this.cargoTrains.forEach(element=>{
-            element.show();
-            //element.attr({ x:  0, y: 0});
-        });
-        //console.log('level' + this.level);
-        let offset=17;
-
-    
-        if(!this.finaltrain){
-            offset+=15;
+        // if the rails go down 
+        if (target.y - this.position.y > 0) {
+            angle = 25;
+            offsetY = offsetY + 7;
+        } else if (target.y - this.position.y < 0) {
+            angle = 335;
+        } else {
+            angle = 0;
+            offsetY = this.position.y - 10;
         }
-        this.animatedTrains.forEach((train,id)=>{       
-            let animator=train.setupPath(this.id);
-            let totaltrains=this.animatedTrains.length;
-            //console.log('number of trains' + totaltrains);
-            let start= (totaltrains-(id+1))*offset;
-            let end=100-id*offset;
-            //console.log(start,end);
-            train.startAnimation(start,end,animator);
-        });
+
+        var pace = 3;
+
+        // quicker for firefox
+        if (navigator.userAgent.indexOf("Firefox") != -1) {
+            pace = 7.5;
+        }
+
+        if (await this.waitForSeconds(delay, localTimeStamp)) {
+            for (var i = 0.0; i < duration; i = i + pace) { //adjusting pace
+                if (i / duration < 0.6) { //not going to far into the station
+                    if (await this.waitForSeconds(1, localTimeStamp)) {
+                        trainSVG.show();
+                        var x = path.pointAt(i / duration * length).x;
+                        var transformAttr = ' rotate(' + angle + '), translate(' + (x) + ', ' + offsetY + ')';
+                        trainHTML.setAttribute('transform', transformAttr);
+                    } else {
+                        trainSVG.hide();
+                        return;
+                    }
+                }
+            }
+        }
+        trainSVG.hide();
     }
 
-    waitForSeconds(duration) {
+    waitForSeconds(duration, localTimeStamp) {
         return new Promise(resolve => {
-          setTimeout(() => {
-            resolve('resolved');
-          }, duration);
+            setTimeout(() => {
+                resolve((window.timestamp == localTimeStamp)); //action can be performed only if play mode active
+            }, duration);
         });
-      }
-      
-    startSteam(train){
-        if(this.smoking==true){
-            return;
-        }
-        this.smoking=true;
-        let counter=0;
-        let transform= train.group.transform();
-        let position={x:train.group.attr('x'),y:train.group.attr('y')};
-        let produceSteam = function (train){
-            //console.log(train.stopsmoke);
-            if(train.stopsmoke==true){
-                console.log('stopping smoke');
-                clearInterval(intervalID);
-                return;
-            }
-            
-            //console.log(counter);
-            if((counter%5)+1==1){
-                position={x:train.group.attr('x'),y:train.group.attr('y')};
-                transform= train.group.transform();
-            }
-            let addSmoke= function (number,position){
-                let smokeOffset={
-                    x:69,
-                    y:11
-                }
-        
-                let canvas=SVG.find('#canvas>svg')
-                let smoke;
-                if(train.moving){
-                    smoke=canvas.image(`./assets/smoke${number%5+1}.png`).x(position.x).y(position.y).transform(transform).css('visible',train.moving?'visible':'hidden');
-
-                }else{
-                    smoke=canvas.image(`./assets/smoke${number%5+1}.png`).x(position.x+smokeOffset.x).y(position.y+smokeOffset.y).transform(transform).css('visible',train.moving?'visible':'hidden');;
-
-                }
-                return smoke;
-           }
-            let smoke = addSmoke(counter,position);
-            setTimeout(function () {
-               //console.log(smoke);
-                smoke.remove(); 
-            },200);
-            counter++;
-            // Your code here
-           }
-          
-        var intervalID = window.setInterval(function(){produceSteam(train)}, 200);
-
-
     }
-
 }
 
