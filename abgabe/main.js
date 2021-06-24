@@ -330,7 +330,11 @@ class Game {
         this.draw = SVG().addTo('#canvas').size('100%', '100%');
 
         let trainsArr = Array.from(this.trains.values());
+<<<<<<< HEAD
         let startTrains = trainsArr.filter(x => (x.value !== undefined && x.value !== NaN));
+=======
+        let startTrains = trainsArr.filter(x => x.value);
+>>>>>>> parent of f963750 (fixed issue with float numbers)
         let stations = trainsArr.filter(x => x instanceof (JoinedTrain));
 
         this.drawRails(this.rails);
